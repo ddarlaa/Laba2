@@ -1,0 +1,16 @@
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\bin\Debug\net9.0\IceBreakerApp.Application.deps.json
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\bin\Debug\net9.0\IceBreakerApp.Application.dll
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\bin\Debug\net9.0\IceBreakerApp.Application.pdb
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\bin\Debug\net9.0\IceBreakerApp.Domain.dll
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\bin\Debug\net9.0\IceBreakerApp.Domain.pdb
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.csproj.AssemblyReference.cache
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.AssemblyInfoInputs.cache
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.AssemblyInfo.cs
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.csproj.CoreCompileInputs.cache
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.sourcelink.json
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreak.44067296.Up2Date
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.dll
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\refint\IceBreakerApp.Application.dll
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\IceBreakerApp.Application.pdb
+C:\Users\dpugi\RiderProjects\IceBreakerApp\IceBreakerApp.Application\obj\Debug\net9.0\ref\IceBreakerApp.Application.dll
