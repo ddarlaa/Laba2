@@ -1,0 +1,6 @@
+@IceBreakerApp_HostAddress = http://localhost:5147
+
+GET {{IceBreakerApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

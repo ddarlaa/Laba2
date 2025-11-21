@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "46wYb61gDF8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dpugi\\RiderProjects\\IceBreakerApp\\IceBreakerApp\\IceBreakerApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dpugi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\dpugi\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
