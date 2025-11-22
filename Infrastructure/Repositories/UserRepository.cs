@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
             Directory.CreateDirectory(directory);
     }
 
-    private static JsonNamingPolicy GetNamingPolicy(string policyName) =>
+    private static JsonNamingPolicy? GetNamingPolicy(string policyName) =>
         policyName.ToLower() switch
         {
             "camelcase" => JsonNamingPolicy.CamelCase,

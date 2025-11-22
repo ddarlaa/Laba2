@@ -30,7 +30,7 @@ public class QuestionRepository : IQuestionRepository
             File.WriteAllText(_filePath, "[]");
     }
 
-    private static JsonNamingPolicy GetNamingPolicy(string policyName) =>
+    private static JsonNamingPolicy? GetNamingPolicy(string policyName) =>
         policyName.ToLower() switch
         {
             "camelcase" => JsonNamingPolicy.CamelCase,

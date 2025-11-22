@@ -4,7 +4,7 @@ using IceBreakerApp.Domain;
 using IceBreakerApp.Domain.Interfaces;
 using IceBreakerApp.Infrastructure.Configuration;
 
-namespace IceBreakerApp.Infrastructure.Repositories;
+namespace Infrastructure.Repositories;
 
 public class QuestionAnswerRepository : IQuestionAnswerRepository
 {
@@ -15,19 +15,19 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
     public QuestionAnswerRepository(StorageSettings storageSettings)
     {
         _filePath = Path.Combine(storageSettings.StoragePath, storageSettings.QuestionAnswersFileName);
-        
-        _jsonOptions = new JsonSerializerOptions 
-        { 
+
+        _jsonOptions = new JsonSerializerOptions
+        {
             PropertyNamingPolicy = GetNamingPolicy(storageSettings.PropertyNamingPolicy),
             WriteIndented = storageSettings.WriteIndented
         };
-        
+
         var directory = Path.GetDirectoryName(_filePath);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
             Directory.CreateDirectory(directory);
     }
 
-    private static JsonNamingPolicy GetNamingPolicy(string policyName) =>
+    private static JsonNamingPolicy? GetNamingPolicy(string policyName) => 
         policyName.ToLower() switch
         {
             "camelcase" => JsonNamingPolicy.CamelCase,
@@ -35,22 +35,22 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
             "pascalcase" => null,
             _ => JsonNamingPolicy.CamelCase
         };
-    
+
     private async Task<List<QuestionAnswer>> ReadAllAsync(CancellationToken ct)
     {
         await _semaphore.WaitAsync(ct);
         try
         {
-            if (!File.Exists(_filePath)) 
+            if (!File.Exists(_filePath))
                 return new List<QuestionAnswer>();
 
             var json = await File.ReadAllTextAsync(_filePath, ct);
-            return JsonSerializer.Deserialize<List<QuestionAnswer>>(json, _jsonOptions) 
+            return JsonSerializer.Deserialize<List<QuestionAnswer>>(json, _jsonOptions)
                    ?? new List<QuestionAnswer>();
         }
-        finally 
-        { 
-            _semaphore.Release(); 
+        finally
+        {
+            _semaphore.Release();
         }
     }
 
@@ -110,7 +110,8 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
         return new PaginatedResult<QuestionAnswer>(items, totalCount, pageNumber, pageSize);
     }
 
-    public async Task<IEnumerable<QuestionAnswer>> GetByQuestionIdAsync(Guid questionId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<QuestionAnswer>> GetByQuestionIdAsync(Guid questionId,
+        CancellationToken cancellationToken)
     {
         var entities = await ReadAllAsync(cancellationToken);
         return entities
@@ -140,7 +141,8 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
         return entity;
     }
 
-    public async Task<List<QuestionAnswer>> AddBulkAsync(List<QuestionAnswer> entities, CancellationToken cancellationToken)
+    public async Task<List<QuestionAnswer>> AddBulkAsync(List<QuestionAnswer> entities,
+        CancellationToken cancellationToken)
     {
         var allEntities = await ReadAllAsync(cancellationToken);
         allEntities.AddRange(entities);
@@ -163,7 +165,7 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
     {
         var entities = await ReadAllAsync(cancellationToken);
         var answer = entities.FirstOrDefault(a => a.Id == answerId && a.IsActive);
-        
+
         if (answer != null)
         {
             // Снимаем отметку со всех ответов на этот вопрос
@@ -172,7 +174,7 @@ public class QuestionAnswerRepository : IQuestionAnswerRepository
             {
                 a.IsAccepted = false;
             }
-            
+
             await WriteAllAsync(entities, cancellationToken);
         }
     }

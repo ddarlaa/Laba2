@@ -10,6 +10,7 @@ using IceBreakerApp.Domain.Interfaces;
 using IceBreakerApp.Application.Interfaces;
 using IceBreakerApp.Application.IServices;
 using IceBreakerApp.Domain.Interfaces.IServices;
+using Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
