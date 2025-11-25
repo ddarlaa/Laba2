@@ -11,6 +11,7 @@ using IceBreakerApp.Application.Interfaces;
 using IceBreakerApp.Application.IServices;
 using IceBreakerApp.Domain.Interfaces.IServices;
 using Infrastructure.Repositories;
+using Microsoft.Extensions.Options;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,6 +59,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateQuestionValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateTopicValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserValidator>();
 
+
+
 // Настройка конфигурации хранилища
 builder.Services.Configure<StorageSettings>(options =>
 {
@@ -65,6 +68,9 @@ builder.Services.Configure<StorageSettings>(options =>
     options.WriteIndented = true;
     options.PropertyNamingPolicy = "CamelCase";
 });
+
+builder.Services.Configure<StorageSettings>(builder.Configuration.GetSection("StorageSettings"));
+builder.Services.AddSingleton(provider => provider.GetRequiredService<IOptions<StorageSettings>>().Value);
 
 // Настройка AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

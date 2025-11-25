@@ -2,6 +2,12 @@
 
 public class QuestionAnswerResponseDTO
 {
+    public QuestionAnswerResponseDTO(string content, Guid userId)
+    {
+        Content = content;
+        UserId = userId;
+    }
+
     public Guid Id { get; set; }
     public Guid QuestionId { get; set; }
     public Guid UserId { get; set; }
