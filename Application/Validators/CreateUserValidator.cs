@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using IceBreakerApp.Application.DTOs.Create;
 using IceBreakerApp.Application.DTOs.Response;
+using IceBreakerApp.Application.IServices;
 
 public class CreateUserValidator : AbstractValidator<CreateUserDTO>
 {

@@ -4,6 +4,8 @@ using IceBreakerApp.Application.DTOs.Create;
 using IceBreakerApp.Application.DTOs.Response;
 using IceBreakerApp.Application.DTOs.Update;
 
+namespace IceBreakerApp.Application.IServices;
+
 public interface IUserService
 {
     Task<UserResponseDTO?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
