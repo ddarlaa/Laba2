@@ -5,6 +5,9 @@
 bin/
 obj/
 
+# Code review
+CODE_REVIEW_REPORT.md
+
 # Локальные настройки
 appsettings.Development.json
 appsettings.local.json
@@ -83,36 +86,6 @@ artifacts/
 
 # StyleCop
 StyleCopReport.xml
-
-# Files built by Visual Studio
-*_i.c
-*_p.c
-*_h.h
-*.ilk
-*.meta
-*.obj
-*.iobj
-*.pch
-*.pdb
-*.ipdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*_wpftmp.csproj
-*.log
-*.tlog
-*.vspscc
-*.vssscc
-.builds
-*.pidb
-*.svclog
-*.scc
 
 # Chutzpah Test files
 _Chutzpah*
