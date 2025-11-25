@@ -40,7 +40,7 @@ public class TopicRepository : ITopicRepository
     public async Task<Topic?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entities = await ReadAllAsync(cancellationToken);
-        return entities.FirstOrDefault(t => t.Id == id);
+        return entities.FirstOrDefault(t => t.Id == id && t.IsActive);
     }
 
     public async Task<PaginatedResult<Topic>> GetPaginatedAsync(
@@ -50,7 +50,7 @@ public class TopicRepository : ITopicRepository
         CancellationToken cancellationToken = default)
     {
         var entities = await ReadAllAsync(cancellationToken);
-        var query = entities.AsQueryable();
+        var query = entities.Where(t => t.IsActive).AsQueryable();
 
         // Apply search filter
         if (!string.IsNullOrWhiteSpace(search))
@@ -74,20 +74,20 @@ public class TopicRepository : ITopicRepository
     {
         var entities = await ReadAllAsync(cancellationToken);
         return entities.FirstOrDefault(t =>
-            t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            t.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && t.IsActive);
     }
 
     public async Task<bool> ExistsByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var entities = await ReadAllAsync(cancellationToken);
         return entities.Any(t =>
-            t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            t.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && t.IsActive);
     }
 
     public async Task<IEnumerable<Topic>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var entities = await ReadAllAsync(cancellationToken);
-        return entities.OrderBy(t => t.Name);
+        return entities.Where(t => t.IsActive).OrderBy(t => t.Name);
     }
 
     public async Task<Topic> AddAsync(Topic item, CancellationToken cancellationToken = default)
@@ -113,11 +113,13 @@ public class TopicRepository : ITopicRepository
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entities = await ReadAllAsync(cancellationToken);
-        var topicIndex = entities.FindIndex(t => t.Id == id);
+        var topic = entities.FirstOrDefault(t => t.Id == id);
         
-        if (topicIndex >= 0)
+        if (topic != null)
         {
-            entities.RemoveAt(topicIndex);
+            // Mark topic as inactive (soft delete)
+            topic.IsActive = false;
+            topic.UpdatedAt = DateTime.UtcNow;
             await WriteAllAsync(entities, cancellationToken);
         }
     }
@@ -128,7 +130,7 @@ public class TopicRepository : ITopicRepository
         var idSet = topicIds.ToHashSet();
     
         return topics
-            .Where(t => idSet.Contains(t.Id))
+            .Where(t => idSet.Contains(t.Id) && t.IsActive)
             .ToList()
             .AsReadOnly();
     }

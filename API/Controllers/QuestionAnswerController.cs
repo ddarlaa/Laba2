@@ -50,9 +50,6 @@ public class QuestionAnswersController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var answer = await _service.GetByIdAsync(id, cancellationToken);
-        if (answer == null)
-            return NotFound(new { message = $"Answer with ID {id} not found" });
-            
         return Ok(answer);
     }
 
@@ -67,15 +64,8 @@ public class QuestionAnswersController : ControllerBase
         Guid questionId,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var answer = await _service.GetAcceptedAsync(questionId, cancellationToken);
-            return Ok(answer);
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+        var answer = await _service.GetAcceptedAsync(questionId, cancellationToken);
+        return Ok(answer);
     }
 
     /// <summary>
@@ -121,15 +111,8 @@ public class QuestionAnswersController : ControllerBase
         [FromBody] UpdateQuestionAnswerDTO dto,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.UpdateAsync(id, dto, cancellationToken);
-            return NoContent();
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+        await _service.UpdateAsync(id, dto, cancellationToken);
+        return NoContent();
     }
 
     /// <summary>
@@ -143,15 +126,8 @@ public class QuestionAnswersController : ControllerBase
         Guid id,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.DeleteAsync(id, cancellationToken);
-            return NoContent();
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+        await _service.DeleteAsync(id, cancellationToken);
+        return NoContent();
     }
 
     /// <summary>
@@ -165,14 +141,7 @@ public class QuestionAnswersController : ControllerBase
         Guid id,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.AcceptAsync(id, cancellationToken);
-            return NoContent();
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+        await _service.AcceptAsync(id, cancellationToken);
+        return NoContent();
     }
 }

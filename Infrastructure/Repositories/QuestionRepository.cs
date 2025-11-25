@@ -42,12 +42,13 @@ public class QuestionRepository : IQuestionRepository
     public async Task<Question?> GetByIdAsync(Guid id, CancellationToken ct = default)
     {
         var questions = await ReadAllAsync(ct);
-        return questions.FirstOrDefault(q => q.Id == id);
+        return questions.FirstOrDefault(q => q.Id == id && q.IsActive);
     }
 
     public async Task<IEnumerable<Question>> GetAllAsync(CancellationToken ct = default)
     {
-        return await ReadAllAsync(ct);
+        var questions = await ReadAllAsync(ct);
+        return questions.Where(q => q.IsActive);
     }
 
     public async Task<PaginatedResult<Question>> GetPaginatedAsync(

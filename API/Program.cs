@@ -37,7 +37,7 @@ builder.Services.AddSwaggerGen(c =>
     c.EnableAnnotations();
 // XML Comments
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
     {
         c.IncludeXmlComments(xmlPath);
@@ -45,9 +45,9 @@ var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 });
 
 // CORS конфигурация
-builder.Services.AddCors(options => options.AddPolicy("AllowAll", 
+builder.Services.AddCors(options => options.AddPolicy("AllowAll",
     policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-    
+
 builder.Services.AddFluentValidationAutoValidation();
 
 // Регистрация всех валидаторов
@@ -58,7 +58,6 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateTopicValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateQuestionValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateTopicValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserValidator>();
-
 
 
 // Настройка конфигурации хранилища
@@ -76,15 +75,15 @@ builder.Services.AddSingleton(provider => provider.GetRequiredService<IOptions<S
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Регистрация репозиториев
-builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 
-builder.Services.AddScoped<ITopicRepository,TopicRepository>();
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 
-builder.Services.AddScoped<IQuestionAnswerRepository,QuestionAnswerRepository>();
+builder.Services.AddScoped<IQuestionAnswerRepository, QuestionAnswerRepository>();
 
-builder.Services.AddScoped<IQuestionLikeRepository,QuestionLikeRepository>();
+builder.Services.AddScoped<IQuestionLikeRepository, QuestionLikeRepository>();
 
 // Регистрация сервисов
 builder.Services.AddScoped<IUserService, UserService>();
@@ -107,6 +106,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Swagger UI на корневом URL
     });
 }
+
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

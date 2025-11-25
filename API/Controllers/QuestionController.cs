@@ -53,7 +53,7 @@ public class QuestionsController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var question = await _questionService.GetByIdAsync(id, cancellationToken);
-        return question != null ? Ok(question) : NotFound();
+        return Ok(question);
     }
 
     [HttpPost]

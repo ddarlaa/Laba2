@@ -51,8 +51,6 @@ public class TopicsController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var topic = await _service.GetByIdAsync(id, cancellationToken);
-        if (topic == null)
-            return NotFound(new { message = $"Topic with ID {id} not found" });
         return Ok(topic);
     }
 
@@ -84,15 +82,8 @@ public class TopicsController : ControllerBase
         [FromBody] UpdateTopicDTO dto,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.UpdateAsync(id, dto, cancellationToken);
-            return NoContent();
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Topic with ID {id} not found" });
-        }
+        await _service.UpdateAsync(id, dto, cancellationToken);
+        return NoContent();
     }
 
     /// <summary>
@@ -104,14 +95,7 @@ public class TopicsController : ControllerBase
     [SwaggerResponse(404, "Topic not found")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.DeleteAsync(id, cancellationToken);
-            return NoContent();
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Topic with ID {id} not found" });
-        }
+        await _service.DeleteAsync(id, cancellationToken);
+        return NoContent();
     }
 }

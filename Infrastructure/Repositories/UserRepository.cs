@@ -115,6 +115,11 @@ public class UserRepository : IUserRepository
         var users = await ReadAllAsync(ct);
         var user = users.FirstOrDefault(u => u.Id == id);
         if (user is null) return;
+        
+        // Mark user as inactive (soft delete)
+        user.IsActive = false;
+        user.UpdatedAt = DateTime.UtcNow;
+        
         await WriteAllAsync(users, ct);
     }
 

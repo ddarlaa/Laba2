@@ -79,7 +79,6 @@ public class QuestionLikesController : ControllerBase
     /// <summary>
     /// Поставить лайк
     /// </summary>
-    [HttpPost]
     [SwaggerOperation(Summary = "Like a question")]
     [SwaggerResponse(200, "Like added", typeof(bool))]
     [SwaggerResponse(409, "Like already exists")]
@@ -87,13 +86,13 @@ public class QuestionLikesController : ControllerBase
     public async Task<ActionResult<bool>> AddLike(Guid questionId, Guid userId, CancellationToken ct)
     {
         var result = await _service.AddLikeAsync(questionId, userId, ct);
-        return result ? Ok(true) : Conflict(new { message = "Like already exists" });
+        return Ok(result);
     }
 
     [HttpDelete("question/{questionId}/user/{userId}")]
     public async Task<ActionResult<bool>> RemoveLike(Guid questionId, Guid userId, CancellationToken ct)
     {
         var result = await _service.RemoveLikeAsync(questionId, userId, ct);
-        return result ? Ok(true) : NotFound(new { message = "Like not found" });
+        return Ok(result);
     }
 }

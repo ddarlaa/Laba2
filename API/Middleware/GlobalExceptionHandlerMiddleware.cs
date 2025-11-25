@@ -35,6 +35,7 @@ public class GlobalExceptionHandlerMiddleware
 
         switch (exception)
         {
+            case NotFoundException:
             case KeyNotFoundException:
                 code = HttpStatusCode.NotFound;
                 result = JsonSerializer.Serialize(new { error = exception.Message });

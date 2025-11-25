@@ -49,9 +49,7 @@ public class UsersController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var user = await _service.GetByIdAsync(id, cancellationToken);
-        return user == null
-            ? NotFound(new { message = $"User with ID {id} not found" })
-            : Ok(user);
+        return Ok(user);
     }
 
     /// <summary>
@@ -82,15 +80,8 @@ public class UsersController : ControllerBase
         [FromBody]  UpdateUserDTO dto,
         CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.UpdateAsync(id, dto, cancellationToken);
-            return NoContent();
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"User with ID {id} not found" });
-        }
+        await _service.UpdateAsync(id, dto, cancellationToken);
+        return NoContent();
     }
 
     /// <summary>
@@ -102,14 +93,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(404, "User not found")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            await _service.DeleteAsync(id, cancellationToken);
-            return NoContent();
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"User with ID {id} not found" });
-        }
+        await _service.DeleteAsync(id, cancellationToken);
+        return NoContent();
     }
 }
